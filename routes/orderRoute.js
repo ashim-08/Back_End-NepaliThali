@@ -1,6 +1,8 @@
 const express = require("express");
 const route = express.Router();
 const Order = require("../model/orderModel");
+const { jwtAuthMiddleware, generatejwttoken } = require("../jwt");
+const User = require("../model/userModel");
 
 route.get("/", async (req, res) => {
   try {
@@ -14,9 +16,16 @@ route.get("/", async (req, res) => {
   }
 });
 
-route.post("/", async (req, res) => {
+route.post("/", jwtAuthMiddleware, async (req, res) => {
   try {
+    const userId = req.user.id;
+    const user = await User.findById(userId);
     const data = req.body;
+    data.contactNumber = user.contactNumber;
+    data.cName = user.cName;
+    data.city = user.city;
+    data.street = user.street;
+    data.deliveryDescription = user.deliveryDescription;
     const order = new Order(data);
     const response = await order.save();
     res
