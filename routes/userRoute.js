@@ -6,8 +6,22 @@ const { jwtAuthMiddleware, generatejwttoken } = require("../jwt");
 route.post("/signup", async (req, res) => {
   try {
     const data = req.body;
+
+    // Check if username already exists
+    const existingUserName = await User.findOne({ userName: data.userName });
+    if (existingUserName) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
+    // Check if email already exists
+    const existingEmail = await User.findOne({ email: data.email });
+    if (existingEmail) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
     const user = new User(data);
     let response = await user.save();
+
     const payload = {
       id: response.id,
       userName: response.userName,
@@ -32,7 +46,7 @@ route.post("/login", async (req, res) => {
     const { userName, password } = req.body;
     const user = await User.findOne({ userName: userName });
     if (!user || !(await user.comparePassword(password))) {
-      res.status(400).json({ message: "user or password is invalid" });
+      return res.status(400).json({ message: "User or password is invalid" });
     }
     res.status(200).json({
       message: "Login successful",

@@ -7,50 +7,39 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  contactNumber: {
-    type: String,
-  },
+  contactNumber: String,
   email: {
     type: String,
     unique: true,
+    required: true,
   },
   password: {
     type: String,
+    required: true,
   },
-  city: {
-    type: String,
-  },
-  street: {
-    type: String,
-  },
+  city: String,
+  street: String,
+  deliveryDescription: String,
   role: {
     type: String,
+    default: "user",
   },
-  deliveryDescription: {
-    type: String,
-  },
-  role: {
-    type: String,
-    defult: "user",
-  },
-  token: {
-    type: String,
-  },
+  token: String,
 });
 
+// Hash password before saving
 userSchema.pre("save", async function (next) {
-  const user = this;
-  if (!user.isModified("password")) return next();
+  if (!this.isModified("password")) return next();
   try {
     const salt = await bcrypt.genSalt(10);
-    user, (hashedPassword = await bcrypt.hash(user.password, salt));
-    user.password = hashedPassword;
+    this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error) {
     next(error);
   }
 });
 
+// Method to compare passwords
 userSchema.methods.comparePassword = async function (candidatePassword) {
   try {
     return await bcrypt.compare(candidatePassword, this.password);
