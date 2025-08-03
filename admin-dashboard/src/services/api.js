@@ -35,10 +35,12 @@ export const ordersAPI = {
 
 // Users API
 export const usersAPI = {
+  getAll: () => api.get('/user/all'), // You'll need to add this endpoint
   login: (credentials) => api.post('/user/login', credentials),
   signup: (data) => api.post('/user/signup', data),
   updatePassword: (data) => api.patch('/user', data),
-  delete: () => api.delete('/user'),
+  update: (data) => api.patch('/user/update', data), // You'll need to add this endpoint
+  delete: (id) => api.delete('/user', { data: { id } }),
 };
 
 export default api;

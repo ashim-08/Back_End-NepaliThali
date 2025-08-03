@@ -7,9 +7,11 @@ import { ordersAPI } from '../services/api';
 
 const statusColors = {
   pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-  preparing: 'bg-blue-100 text-blue-800 border-blue-200',
+  accepted: 'bg-blue-100 text-blue-800 border-blue-200',
+  preparing: 'bg-purple-100 text-purple-800 border-purple-200',
+  ready: 'bg-green-100 text-green-800 border-green-200',
   delivered: 'bg-green-100 text-green-800 border-green-200',
-  cancelled: 'bg-red-100 text-red-800 border-red-200',
+  rejected: 'bg-red-100 text-red-800 border-red-200',
 };
 
 export default function Orders() {
@@ -81,9 +83,11 @@ export default function Orders() {
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
+            <option value="accepted">Accepted</option>
             <option value="preparing">Preparing</option>
+            <option value="ready">Ready</option>
             <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="rejected">Rejected</option>
           </select>
         </div>
       </div>
@@ -148,16 +152,20 @@ export default function Orders() {
                     >
                       <Eye className="w-3 h-3" />
                     </Button>
-                    <select
-                      value={order.status || 'pending'}
-                      onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
-                      className="text-xs border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-primary-500"
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="preparing">Preparing</option>
-                      <option value="delivered">Delivered</option>
-                      <option value="cancelled">Cancelled</option>
-                    </select>
+                    <div className="flex flex-col space-y-1">
+                      <select
+                        value={order.status || 'pending'}
+                        onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
+                        className="text-xs border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-primary-500"
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="accepted">Accept</option>
+                        <option value="preparing">Preparing</option>
+                        <option value="ready">Ready</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="rejected">Reject</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>

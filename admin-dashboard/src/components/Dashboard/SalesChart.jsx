@@ -1,18 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Card from '../UI/Card';
+import { ordersAPI } from '../../services/api';
 
-const data = [
-  { name: 'Jan', sales: 4000, orders: 240 },
-  { name: 'Feb', sales: 3000, orders: 198 },
-  { name: 'Mar', sales: 5000, orders: 300 },
-  { name: 'Apr', sales: 4500, orders: 278 },
-  { name: 'May', sales: 6000, orders: 389 },
-  { name: 'Jun', sales: 5500, orders: 349 },
-  { name: 'Jul', sales: 7000, orders: 430 },
-];
+export default function SalesChart({ orders: totalOrders, revenue: totalRevenue }) {
+  const [chartData, setChartData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default function SalesChart() {
+  useEffect(() => {
+    generateChartData();
+  }, [totalOrders, totalRevenue]);
+
+  const generateChartData = async () => {
+    try {
+      // For now, we'll generate mock data based on current totals
+      // In a real app, you'd fetch historical data from your backend
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+      const data = months.map((month, index) => {
+        const monthlyOrders = Math.floor((totalOrders || 100) * (0.8 + Math.random() * 0.4) / 7);
+        const monthlySales = Math.floor((totalRevenue || 50000) * (0.8 + Math.random() * 0.4) / 7);
+        return {
+          name: month,
+          sales: monthlySales,
+          orders: monthlyOrders
+        };
+      });
+      setChartData(data);
+    } catch (error) {
+      console.error('Error generating chart data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <Card>
+        <div className="flex items-center justify-center h-80">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+        </div>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <div className="flex items-center justify-between mb-6">
@@ -26,7 +56,7 @@ export default function SalesChart() {
       
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
+          <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
             <XAxis 
               dataKey="name" 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import Sidebar from './components/Layout/Sidebar';
 import Header from './components/Layout/Header';
 import Dashboard from './pages/Dashboard';
@@ -18,9 +17,12 @@ const routes = {
 
 function App() {
   const [currentPath, setCurrentPath] = useState('/');
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleNavigate = (path) => {
     setCurrentPath(path);
+    // Refresh the component when navigating
+    setRefreshKey(prev => prev + 1);
   };
 
   const handleLogout = () => {
@@ -48,7 +50,7 @@ function App() {
         <Header title={currentTitle} />
         
         <main className="flex-1 overflow-y-auto p-6">
-          <CurrentComponent />
+          <CurrentComponent key={refreshKey} />
         </main>
       </div>
     </div>

@@ -5,6 +5,7 @@ import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
 import ProductForm from '../components/Products/ProductForm';
 import { productsAPI } from '../services/api';
+import { Package } from 'lucide-react';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
