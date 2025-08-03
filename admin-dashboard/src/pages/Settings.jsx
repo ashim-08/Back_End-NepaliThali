@@ -32,7 +32,7 @@ export default function Settings() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
         {/* General Settings */}
         <Card>
           <div className="flex items-center mb-6">
@@ -65,7 +65,7 @@ export default function Settings() {
               />
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Currency

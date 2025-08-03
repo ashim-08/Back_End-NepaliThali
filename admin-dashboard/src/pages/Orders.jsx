@@ -96,8 +96,8 @@ export default function Orders() {
       <div className="space-y-4">
         {filteredOrders.map((order) => (
           <Card key={order._id} className="hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="space-y-4 lg:space-y-0 lg:flex lg:items-center lg:justify-between">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Customer Info */}
                 <div>
                   <h3 className="font-semibold text-gray-900">{order.cName || 'N/A'}</h3>
@@ -105,7 +105,7 @@ export default function Orders() {
                     <Phone className="w-3 h-3 mr-1" />
                     {order.contactNumber || 'N/A'}
                   </div>
-                  <div className="flex items-center text-sm text-gray-500 mt-1">
+                  <div className="flex items-center text-sm text-gray-500 mt-1 truncate">
                     <MapPin className="w-3 h-3 mr-1" />
                     {order.street || 'N/A'}
                   </div>
@@ -131,7 +131,7 @@ export default function Orders() {
                 </div>
 
                 {/* Status & Actions */}
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
                   <div>
                     <span className={`px-3 py-1 text-xs font-medium rounded-full border ${statusColors[order.status] || statusColors.pending}`}>
                       {order.status || 'pending'}
@@ -141,7 +141,7 @@ export default function Orders() {
                       {new Date(order.createdAt || Date.now()).toLocaleDateString()}
                     </div>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                     <Button
                       size="sm"
                       variant="outline"
@@ -152,11 +152,11 @@ export default function Orders() {
                     >
                       <Eye className="w-3 h-3" />
                     </Button>
-                    <div className="flex flex-col space-y-1">
+                    <div>
                       <select
                         value={order.status || 'pending'}
                         onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
-                        className="text-xs border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-primary-500"
+                        className="text-xs border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-primary-500 w-full sm:w-auto"
                       >
                         <option value="pending">Pending</option>
                         <option value="accepted">Accept</option>

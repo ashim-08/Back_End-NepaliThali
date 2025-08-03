@@ -139,7 +139,7 @@ export default function Users() {
       </div>
 
       {/* Users Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
         {filteredUsers.map((user) => (
           <Card key={user._id} className="hover:shadow-md transition-shadow">
             <div className="flex items-start justify-between mb-4">
@@ -149,8 +149,8 @@ export default function Users() {
                     {user.userName.charAt(0).toUpperCase()}
                   </span>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">{user.userName}</h3>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-semibold text-gray-900 truncate">{user.userName}</h3>
                   <div className="flex items-center mt-1">
                     <span className={`px-2 py-1 text-xs font-medium rounded-full ${
                       user.role === 'admin' 
@@ -163,7 +163,7 @@ export default function Users() {
                   </div>
                 </div>
               </div>
-              <div className="flex space-x-2">
+              <div className="flex space-x-1 flex-shrink-0">
                 <Button
                   size="sm"
                   variant="outline"
@@ -185,17 +185,17 @@ export default function Users() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 truncate">
                 <Mail className="w-4 h-4 mr-2 text-gray-400" />
                 {user.email}
               </div>
               
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 truncate">
                 <Phone className="w-4 h-4 mr-2 text-gray-400" />
                 {user.contactNumber}
               </div>
               
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 truncate">
                 <MapPin className="w-4 h-4 mr-2 text-gray-400" />
                 {user.street || 'N/A'}, {user.city || 'N/A'}
               </div>

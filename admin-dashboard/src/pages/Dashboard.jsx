@@ -63,7 +63,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <StatsCard
           title="Total Revenue"
           value={`Rs. ${stats.totalRevenue.toLocaleString()}`}
@@ -95,7 +95,7 @@ export default function Dashboard() {
       </div>
 
       {/* Charts and Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
         <SalesChart orders={stats.totalOrders} revenue={stats.totalRevenue} />
         <RecentOrders />
       </div>

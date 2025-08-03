@@ -95,11 +95,11 @@ export default function Products() {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
         {filteredProducts.map((product) => (
           <Card key={product._id} className="overflow-hidden">
             {/* Product Image */}
-            <div className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden">
+            <div className="aspect-square sm:aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden">
               {product.image ? (
                 <img
                   src={product.image}
@@ -117,10 +117,10 @@ export default function Products() {
             <div className="space-y-3">
               <div className="flex items-start justify-between">
                 <h3 className="font-semibold text-gray-900 text-lg">{product.pName}</h3>
-                <span className="text-lg font-bold text-primary-600">Rs. {product.price}</span>
+                <span className="text-base lg:text-lg font-bold text-primary-600 whitespace-nowrap">Rs. {product.price}</span>
               </div>
 
-              <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+              <p className="text-xs lg:text-sm text-gray-600 line-clamp-2">{product.description}</p>
 
               <div className="flex items-center justify-between text-sm text-gray-500">
                 <div className="flex items-center">
@@ -139,7 +139,7 @@ export default function Products() {
                 <span className="px-2 py-1 bg-primary-100 text-primary-800 text-xs rounded-full">
                   {product.category}
                 </span>
-                <div className="flex space-x-2">
+                <div className="flex space-x-1 lg:space-x-2">
                   <Button
                     size="sm"
                     variant="outline"

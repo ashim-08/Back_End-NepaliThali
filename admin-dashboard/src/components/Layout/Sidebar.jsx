@@ -6,7 +6,8 @@ import {
   Users, 
   Settings,
   LogOut,
-  ChefHat
+  ChefHat,
+  X
 } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
@@ -18,11 +19,19 @@ const navigation = [
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
-export default function Sidebar({ currentPath, onNavigate, onLogout }) {
+export default function Sidebar({ currentPath, onNavigate, onLogout, onClose }) {
   return (
     <div className="flex flex-col h-full bg-white shadow-xl border-r border-gray-200">
       {/* Logo */}
       <div className="flex items-center px-6 py-8 border-b border-gray-200">
+        {/* Close button for mobile */}
+        <button
+          onClick={onClose}
+          className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 lg:hidden absolute top-4 right-4"
+        >
+          <X className="w-5 h-5" />
+        </button>
+        
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-primary-500 rounded-xl">
             <ChefHat className="w-8 h-8 text-white" />
